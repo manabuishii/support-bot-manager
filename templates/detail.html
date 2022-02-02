@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Support Bot Detail</title>
+    </head>
+    <body>
+        <h1>Support Bot Detail</h1>
+        会話ファイル名: {{ file.filename }}<br>
+        <form action="/update" method="POST">
+            <input type="hidden" name="id" value="{{ file.id }}">
+            <input type="radio" id="deploy" name="botstatus" value="deploy"
+                {% if file.botstatus.name == "deploy" %} checked {% endif %}>                
+            <label for="deploy">運用中</label><br>
+            <input type="radio" id="wait" name="botstatus" value="wait"
+                {% if file.botstatus.name == "wait" %} checked {% endif %}>
+            <label for="wait">承認待ち</label><br>
+            <input type="radio" id="notadmitted" name="botstatus" value="notadmitted"
+                {% if file.botstatus.name == "notadmitted" %} checked {% endif %}>
+            <label for="notadmitted">非承認</label><br>
+            <input type="submit" value="変更">
+        </form>
+        <hr>
+        <p>
+            <a href="/manage">Manage</a>
+        </p>
+    </body>
+</html>

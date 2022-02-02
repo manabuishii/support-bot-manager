@@ -2,6 +2,28 @@
 <html>
     <head>
         <title>Support Bot Manage</title>
+<style>
+    div.deploy {
+        border-style: solid;
+        border-color: #00B050;
+    }
+    div.wait {
+        border-style: solid;
+        border-color: #FFC000;
+    }
+    div.notadmitted {
+        border-style: dotted;
+    }
+    span.deploy {
+        color: #00B050;
+    }
+    span.wait {
+        color: #FFC000;
+    }
+    span.notadmitted {
+        color: red;
+    }
+</style>
     </head>
     <body>
         <h1>Support Bot Manage</h1>
@@ -12,8 +34,32 @@
             </form>
             <hr>
             <h1>Thumbnail</h1>
+            <!-- files -->
 
-            <hr
+            <table>
+            {% for row in files|batch(3, nil) %}
+                <tr>
+                    {% for file in row %}
+                        <td>
+                            {% if file %}
+                            <div class="{{ file.botstatus.name }}">
+                                {{file.id|e}}<br>
+                                    <a href="/detail/{{ file.id|e }}">{{ file.filename|e }}</a>
+                                <br>
+                                <span class="{{file.botstatus.name}}">
+                                    {{file.botstatus.value}}
+                                </span>
+                                <br>
+                                This file has {{file.count|e}} lines.
+                            </div>
+                            {% endif %}
+                        </td>
+
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <hr>
             <a href="/manage">Manage</a>
         </p>
     </body>
