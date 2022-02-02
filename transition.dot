@@ -1,0 +1,9 @@
+digraph G {
+  "/" -> "manage";
+  "manage" -> "uploader";
+  "uploader" -> "manage";
+  "uploader" -> "upload fail";
+  "manage" -> "detail";
+  "detail" -> "update";
+  "detail" -> "manage";
+}
