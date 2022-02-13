@@ -95,6 +95,9 @@ def upload_file():
             username = "-"
             if "username" in session:
                 username = session["username"]
+            auth = request.authorization
+            if auth is not None:
+                username = auth.username
             # save to database
             conversation = Conversation(
                 name=filename,
