@@ -19,7 +19,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # set the secret key.  keep this really secret:
 app.secret_key = "A0Zr98j/3yX R~XHH!jmN]LWX/,?RT"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/conversation.sqlite?check_same_thread=False"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///conversation.sqlite?check_same_thread=False"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 # enginestring = 'sqlite:///sample_db.sqlite3?check_same_thread=False'
