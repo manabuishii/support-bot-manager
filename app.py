@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Conversation bot."""
+import codecs
 import enum
 import os
 
@@ -112,6 +113,22 @@ def upload_file():
             return redirect(url_for("manage"))
     return render_template("upload_fail.html", reason=reason)
 
+def countLines(filename):
+    # count line number of conversation.filename
+    count = -1
+    # try UTF-8 and shift_jis
+    try:
+        with codecs.open(filename, 'r',encoding='shift_jis',errors="ignore") as f:
+            for _ in f:
+                count = count + 1
+    except UnicodeDecodeError:
+        try:
+            with codecs.open(filename, 'r',encoding='utf-8',errors="ignore") as f:
+                for _ in f:
+                    count = count + 1
+        except UnicodeDecodeError:
+            pass
+    return count
 
 @app.route("/manage")
 def manage():
@@ -121,10 +138,7 @@ def manage():
     for conversation in result:
         print(conversation.id, conversation.filename)
         # count line number of conversation.filename
-        count = 0
-        with open(app.config["UPLOAD_FOLDER"] + "/" + conversation.filename, "r") as f:
-            for _ in f:
-                count = count + 1
+        count = countLines(app.config["UPLOAD_FOLDER"] + "/" + conversation.filename)
         files.append(
             {
                 "id": conversation.id,
